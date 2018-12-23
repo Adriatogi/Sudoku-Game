@@ -6,7 +6,7 @@ while(i < 35){
   rowA = a[Math.floor(Math.random() * a.length)];
   rowB = Math.floor(Math.random() * b.length);
   var aChild = rowA[0].children[rowB].children[0];
-  randNumber = (Math.floor(Math.random() * 6) + 1);
+  randNumber = (Math.floor(Math.random() * 9) + 1);
   if(aChild.value == ""){
     aChild.value = randNumber;
     i++;
