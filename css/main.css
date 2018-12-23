@@ -2,6 +2,30 @@ table {
 margin: auto;
 }
 
+.b1, .b4, .b7{
+	border-left: 4px solid black;
+}
+
+.b3, .b6 {
+	border-right: 0px ;
+}
+
+.b9 {
+	border-right: 4px solid black;
+}
+
+.a1, .a4, .a7 {
+	border-top: 4px solid black;
+}
+
+.a3, .a6 {
+	border-bottom: 0px ;
+}
+
+.a9 {
+	border-bottom: 4px solid black;
+}
+
 td {
 	width: 50px;
 	height: 50px;
