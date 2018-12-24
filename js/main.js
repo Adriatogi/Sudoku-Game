@@ -171,6 +171,7 @@ function checkTileSetUp(A, B, valueCheck){
 function inputValue(cell, newValue, works){
   if ((cell.value == "") && (works == 1)) { // if empty and not existing in the row
     cell.value = newValue; // Fill with random value
+    cell.disabled = true;
     i++;
   }
 }
