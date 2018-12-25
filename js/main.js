@@ -10,10 +10,13 @@ while(i < 35){ // Make sure at least 35 squares are filled
   var randCell = a[rowA][0].children[rowB].children[0]; // pick random cell
   randNumber = (Math.floor(Math.random() * 9) + 1); 
 
-  checkColumn(rowB, randNumber);
-  checkRow(rowA, randNumber);
-  checkTileSetUp(rowA, rowB, randNumber);
-  inputValue(randCell, randNumber, works);
+  var worksRow = checkRow(rowA, randNumber);
+  var worksColumn = checkColumn(rowB, randNumber);
+  var worksTile = checkTileSetUp(rowA, rowB, randNumber);
+
+  if((worksRow == true)&& (worksColumn==true) && (worksTile == true)){
+    inputValue(randCell, randNumber);
+  }
 }
 
 $("input").keydown(function(event){
@@ -22,156 +25,210 @@ $("input").keydown(function(event){
   }
 });
 
+$("#checkButton button").click(function(){
+  $("td").each(function(cell){
+    var rowA = $(this).parent().index();
+    var rowB = $(this).index();
+    var cellValue = $(this).val();
+    console.log(rowA);
+    console.log(rowB)
+    checkColumn2(rowB, cellValue);
+
+  })
+});
+
 function checkRow(A, valueCheck){
   var aCells = [].slice.call(a[A][0].children) // Create an array of every cell
+  var single;
   aCells.forEach(function (cell) {
     if (valueCheck == cell.children[0].value) { // if new value already exists in row, do not input
-      return works = 0;
+      single = false;
     }
   });
+  if(single == false){
+    return false;
+  }
+  else{
+  return true;
+  }
 };
 
 function checkColumn(B, valueCheck){
+  var single = true;
   a.forEach(function (row) {
     if (valueCheck == row[0].children[B].children[0].value) {
-      works = 0;
+      // works = 0;
+      single = false;
     }
   });
-}
+  if(single == false){
+    return false;
+  }
+  else{
+  return true;
+  }
+};
 
 function checkTileSetUp(A, B, valueCheck){
   if (((A == 0) || (A == 3) || (A == 6)) && ((B == 0) || (B == 3) || (B == 6))) {
     if (valueCheck == (a[A + 1][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 1][0].children[B + 2].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 2][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 2][0].children[B + 2].children[0].value)) {
-      return works = 0;
+      return false;
+    }
+    else {
+      return true;
     }
   }
   else if (((A == 1) || (A == 4) || (A == 7)) && ((B == 0) || (B == 3) || (B == 6))) {
     if (valueCheck == (a[A + 1][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 1][0].children[B + 2].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 1][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 1][0].children[B + 2].children[0].value)) {
-      return works = 0;
+      return false;
+    }
+    else {
+      return true;
     }
   }
   else if (((A == 2) || (A == 5) || (A == 8)) && ((B == 0) || (B == 3) || (B == 6))) {
     if (valueCheck == (a[A - 2][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 2][0].children[B + 2].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 1][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 1][0].children[B + 2].children[0].value)) {
-      return works = 0;
+      return false;
+    }
+    else {
+      return true;
     }
   }
   else if (((A == 0) || (A == 3) || (A == 6)) && ((B == 1) || (B == 4) || (B == 7))) {
     if (valueCheck == (a[A + 2][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 2][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 1][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 1][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
+    }
+    else {
+      return true;
     }
   }
   else if (((A == 0) || (A == 3) || (A == 6)) && ((B == 2) || (B == 5) || (B == 8))) {
     if (valueCheck == (a[A + 2][0].children[B - 2].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 2][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 1][0].children[B - 2].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 1][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
+    }
+    else {
+      return true;
     }
   }
   else if (((A == 1) || (A == 4) || (A == 7)) && ((B == 1) || (B == 4) || (B == 7))) {
     if (valueCheck == (a[A - 1][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 1][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 1][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 1][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
+    }
+    else {
+      return true;
     }
   }
   else if (((A == 1) || (A == 4) || (A == 7)) && ((B == 2) || (B == 5) || (B == 8))) {
     if (valueCheck == (a[A - 1][0].children[B - 2].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 1][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 1][0].children[B - 2].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A + 1][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
+    }
+    else {
+      return true;
     }
   }
   else if (((A == 2) || (A == 5) || (A == 8)) && ((B == 1) || (B == 4) || (B == 7))) {
     if (valueCheck == (a[A - 1][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 1][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 2][0].children[B + 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 2][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
+    }
+    else {
+      return true;
     }
   }
   else if (((A == 2) || (A == 5) || (A == 8)) && ((B == 2) || (B == 5) || (B == 8))) {
     if (valueCheck == (a[A - 1][0].children[B - 2].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 1][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 2][0].children[B - 2].children[0].value)) {
-      return works = 0;
+      return false;
     }
     else if (valueCheck == (a[A - 2][0].children[B - 1].children[0].value)) {
-      return works = 0;
+      return false;
+    }
+    else {
+      return true;
     }
   }
 };
 
-function inputValue(cell, newValue, works){
-  if ((cell.value == "") && (works == 1)) { // if empty and not existing in the row
+function inputValue(cell, newValue){
+  if (cell.value == "") { // if empty and not existing in the row
     cell.value = newValue; // Fill with random value
     cell.disabled = true;
     i++;
   }
-}
+};

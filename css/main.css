@@ -2,6 +2,12 @@ table {
 margin: auto;
 }
 
+#checkButton {
+	display: block;
+	text-align: center;
+	margin-top: 10px;
+}
+
 .b1, .b4, .b7{
 	border-left: 4px solid black;
 }
