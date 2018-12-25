@@ -8,13 +8,13 @@ while(i < 35){ // Make sure at least 35 squares are filled
   var rowA = Math.floor(Math.random() * a.length); // pick a random row
   var rowB = Math.floor(Math.random() * b.length);
   var randCell = a[rowA][0].children[rowB].children[0]; // pick random cell
-  randNumber = (Math.floor(Math.random() * 9) + 1); 
+  var randNumber = (Math.floor(Math.random() * 9) + 1); 
 
   var worksRow = checkRow(rowA, randNumber);
   var worksColumn = checkColumn(rowB, randNumber);
-  var worksTile = checkTileSetUp(rowA, rowB, randNumber);
+  var worksTile = checkTile(rowA, rowB, randNumber);
 
-  if((worksRow == true)&& (worksColumn==true) && (worksTile == true)){
+  if(worksRow && worksColumn && worksTile){
     inputValue(randCell, randNumber);
   }
 }
@@ -26,15 +26,26 @@ $("input").keydown(function(event){
 });
 
 $("#checkButton button").click(function(){
+  var single = true;
   $("td").each(function(cell){
     var rowA = $(this).parent().index();
     var rowB = $(this).index();
     var cellValue = $(this).val();
-    console.log(rowA);
-    console.log(rowB)
-    checkColumn2(rowB, cellValue);
-
+    var worksRow = checkRow(rowA, cellValue);
+    var worksColumn = checkColumn(rowB, cellValue);
+    var worksTile = checkTile(rowA, rowB, cellValue);
+    if(worksRow && worksColumn && worksTile){
+    }
+    else{
+      single = false;
+    }
   })
+  if(single == false){
+    alert("fail")
+  }
+  else{
+    alert("pass")
+  }
 });
 
 function checkRow(A, valueCheck){
@@ -69,7 +80,7 @@ function checkColumn(B, valueCheck){
   }
 };
 
-function checkTileSetUp(A, B, valueCheck){
+function checkTile(A, B, valueCheck){
   if (((A == 0) || (A == 3) || (A == 6)) && ((B == 0) || (B == 3) || (B == 6))) {
     if (valueCheck == (a[A + 1][0].children[B + 1].children[0].value)) {
       return false;
